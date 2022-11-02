@@ -7,7 +7,7 @@ const Footer = () => {
         <div className='footer-container'>
             <p>2022 Jonathan Dalien All rights reserved</p>
             <p className='icons'>
-                <Link className='github-button' href="https://www.youtube.com/feed/subscriptions">
+                <Link className='github-button' href="https://github.com/JonathanDalien/Ecommerce-Headphones">
                     <AiFillGithub />
                 </Link>
             </p>
