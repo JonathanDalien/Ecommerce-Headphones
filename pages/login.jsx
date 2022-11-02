@@ -4,7 +4,7 @@ import { useStateContext } from '../context/StateContext';
 import { useRouter } from 'next/router';
 
 
-const login = () => {
+const Login = () => {
 
     const { user, login } = useStateContext();
     console.log(user)
@@ -36,4 +36,4 @@ const login = () => {
     )
 
 }
-export default login
+export default Login

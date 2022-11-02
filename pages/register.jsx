@@ -5,7 +5,7 @@ import { auth } from "../src/firebase-config"
 import { useStateContext } from '../context/StateContext'
 import { useRouter } from 'next/router';
 
-const registerPage = () => {
+const Register = () => {
 
     const { user, signIn } = useStateContext();
     console.log(user)
@@ -42,4 +42,4 @@ const registerPage = () => {
     )
 }
 
-export default registerPage
+export default Register
