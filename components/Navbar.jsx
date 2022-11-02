@@ -3,11 +3,13 @@ import Link from 'next/link'
 import { AiOutlineShopping } from "react-icons/ai";
 import Cart from './Cart';
 import { useStateContext } from '../context/StateContext'
+import { useRouter } from 'next/router';
 
 
 const Navbar = () => {
 
-    const { setShowCart, showCart, totalQuantity } = useStateContext();
+    const { setShowCart, showCart, totalQuantity, user, logout } = useStateContext();
+    const router = useRouter();
 
 
     return (
@@ -18,8 +20,9 @@ const Navbar = () => {
                 </p>
             </div>
             <div className='navbar-section-right'>
-                <Link href="login">Anmelden</Link>
-                <Link href="register">Registrieren</Link>
+                {user ? (<Link legacyBehavior={false} href="/login" onClick={() => {
+                    logout()
+                }} passHref>Abmelden</Link>) : (<><Link href="login" passHref>Anmelden</Link> <Link href="register">Registrieren</Link></>)}
                 <button type='button' className='cart-icon' onClick={() => setShowCart(true)}>
                     <AiOutlineShopping />
                     <span className='cart-item-qty'>{totalQuantity}</span>

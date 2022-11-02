@@ -1,6 +1,9 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import React from "react";
 import toast from "react-hot-toast";
+import { onAuthStateChanged, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, updateProfile } from "firebase/auth";
+import { auth } from "../src/firebase-config"
+import { async } from "@firebase/util";
 
 const Context = createContext();
 
@@ -14,9 +17,13 @@ export const StateContext = ({ children }) => {
     const [totalPrice, setTotalPrice] = useState(0);
     const [totalQuantity, setTotalQuantity] = useState(initialTotalQuantityState);
     const [qty, setQty] = useState(1);
+    const [user, setUser] = useState(null)
+    const [loading, setLoading] = useState(true);
 
     let foundProduct;
     let index;
+
+    console.log(user)
 
     useEffect(() => {
         const cartData = JSON.parse(localStorage.getItem("cart"));
@@ -24,7 +31,6 @@ export const StateContext = ({ children }) => {
         if (cartData) {
             setCartItems(cartData);
             setTotalQuantity(quantityData)
-            console.log(cartItems)
         }
     }, []);
 
@@ -34,6 +40,35 @@ export const StateContext = ({ children }) => {
             localStorage.setItem("cart", JSON.stringify(cartItems));
         }
     }, [cartItems]);
+
+    useEffect(() => {
+        const unsubscribe = onAuthStateChanged(auth, (user) => {
+            if (user) {
+                setUser({
+                    uid: user.uid,
+                    email: user.email,
+                })
+            } else {
+                setUser(null)
+            }
+            setLoading(false)
+        })
+
+        return () => unsubscribe()
+    }, [])
+
+    const signIn = async (email, password, displayName) => {
+        return createUserWithEmailAndPassword(auth, email, password)
+    }
+
+    const login = (email, password) => {
+        return signInWithEmailAndPassword(auth, email, password)
+    }
+
+    const logout = async () => {
+        setUser(null)
+        await signOut(auth)
+    }
 
     const incQty = () => {
         setQty(prevQty => prevQty + 1)
@@ -109,9 +144,9 @@ export const StateContext = ({ children }) => {
 
     return (
         <Context.Provider
-            value={{ showCart, cartItems, setCartItems, setTotalPrice, setTotalQuantity, totalPrice, totalQuantity, qty, setQty, onRemove, incQty, decQty, onAdd, setShowCart, toggleCartItemQuantity }}
+            value={{ showCart, user, signIn, login, logout, cartItems, setCartItems, setTotalPrice, setTotalQuantity, totalPrice, totalQuantity, qty, setQty, onRemove, incQty, decQty, onAdd, setShowCart, toggleCartItemQuantity }}
         >
-            {children}
+            {loading ? null : children}
         </Context.Provider>
     )
 
