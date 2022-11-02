@@ -12,6 +12,7 @@ const login = () => {
 
     return (
         <div className='login-container'>
+            <h1 style={{ color: "red" }}>Not Implemented Yet</h1>
             <h1>Login</h1>
             <form className='login-form' onSubmit={handleSubmit(submitHanlder)}>
                 <Controller name='email' control={control} defaultValue="" rules={{ required: true }} render={({ field }) => (
@@ -22,8 +23,7 @@ const login = () => {
                 )}></Controller>
                 <Controller name='password' control={control} defaultValue="" rules={{ required: true }} render={({ field }) => (
                     <TextField variant='outlined' fullWidth id='password' label="Passwort" inputProps={{ type: "email" }}
-                        error={Boolean(errors.email)}
-                        helperText={errors.email ? errors.email.type === "pattern" ? "Email is not valid" : "Email is required" : ""}>
+                        error={Boolean(errors.password)}>
                     </TextField>
                 )}></Controller>
                 <button className='btn' type='submit'>Anmelden</button>

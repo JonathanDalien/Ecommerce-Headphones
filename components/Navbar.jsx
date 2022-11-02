@@ -19,7 +19,7 @@ const Navbar = () => {
             </div>
             <div className='navbar-section-right'>
                 <Link href="login">Anmelden</Link>
-                <Link href="login">Registrieren</Link>
+                <Link href="register">Registrieren</Link>
                 <button type='button' className='cart-icon' onClick={() => setShowCart(true)}>
                     <AiOutlineShopping />
                     <span className='cart-item-qty'>{totalQuantity}</span>
