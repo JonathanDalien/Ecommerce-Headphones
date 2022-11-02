@@ -12,7 +12,7 @@ const login = () => {
 
     return (
         <div className='login-container'>
-            <h1 style={{ color: "red" }}>Not Implemented Yet</h1>
+            <h1 style={{ color: "red" }}>Not Implemented Yet!</h1>
             <h1>Register</h1>
             <form className='login-form' onSubmit={handleSubmit(submitHanlder)}>
                 <Controller name='name' control={control} defaultValue="" rules={{ required: true }} render={({ field }) => (
