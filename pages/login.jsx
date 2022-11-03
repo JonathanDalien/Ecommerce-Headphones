@@ -1,24 +1,19 @@
 import React, { useState } from 'react'
 import { TextField } from '@mui/material';
 import { useStateContext } from '../context/StateContext';
-import { useRouter } from 'next/router';
 
 
 const Login = () => {
 
     const { user, login } = useStateContext();
-    console.log(user)
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const router = useRouter();
 
     const handleLogin = async (e) => {
         e.preventDefault()
         try {
             await login(email, password)
-            router.push("/")
         } catch (error) {
-            console.log(error)
         }
     }
 

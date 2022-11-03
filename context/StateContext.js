@@ -3,7 +3,6 @@ import React from "react";
 import toast from "react-hot-toast";
 import { onAuthStateChanged, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, updateProfile } from "firebase/auth";
 import { auth } from "../src/firebase-config"
-import { async } from "@firebase/util";
 
 const Context = createContext();
 
@@ -22,8 +21,6 @@ export const StateContext = ({ children }) => {
 
     let foundProduct;
     let index;
-
-    console.log(user)
 
     useEffect(() => {
         const cartData = JSON.parse(localStorage.getItem("cart"));
@@ -47,6 +44,7 @@ export const StateContext = ({ children }) => {
                 setUser({
                     uid: user.uid,
                     email: user.email,
+                    displayName: user.displayName
                 })
             } else {
                 setUser(null)
@@ -58,8 +56,27 @@ export const StateContext = ({ children }) => {
     }, [])
 
     const signIn = async (email, password, displayName) => {
-        return createUserWithEmailAndPassword(auth, email, password)
+        await createUserWithEmailAndPassword(auth, email, password)
+        await updateProfile(auth.currentUser, {
+            displayName: displayName
+        }).then(() => {
+
+        }).catch((error) => {
+        });
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                setUser({
+                    uid: user.uid,
+                    email: user.email,
+                    displayName: user.displayName
+                })
+            } else {
+                setUser(null)
+            }
+            setLoading(false)
+        })
     }
+
 
     const login = (email, password) => {
         return signInWithEmailAndPassword(auth, email, password)
