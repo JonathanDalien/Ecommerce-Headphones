@@ -20,12 +20,12 @@ const Navbar = () => {
             </div>
 
             <div>
-                {user ? (<><p>Willkommen Zurück,<span style={{ textTransform: "capitalize" }}> {user?.displayName}</span></p></>) : ""}
+                {user ? (<><p>Willkommen Zurück<span style={{ textTransform: "capitalize", fontWeight: "bold" }}> {user?.displayName}</span></p></>) : ""}
             </div>
             <div className='navbar-section-right'>
                 {user ? (<Link legacyBehavior={false} href="/login" onClick={() => {
                     logout()
-                }} >Abmelden</Link>) : (<><Link href="login">Anmelden</Link> <Link href="register">Registrieren</Link></>)}
+                }} >Abmelden</Link>) : (<><Link href="/login">Anmelden</Link> <Link href="/register">Registrieren</Link></>)}
                 <button type='button' className='cart-icon' onClick={() => setShowCart(true)}>
                     <AiOutlineShopping />
                     <span className='cart-item-qty'>{totalQuantity}</span>
