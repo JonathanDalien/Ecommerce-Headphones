@@ -727,7 +727,7 @@ span.text-red {
 }
 
 .login-container {
-  width: 1000px;
+  max-width: 1000px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -738,7 +738,6 @@ span.text-red {
 }
 
 .login-form {
-  vertical-align: middle;
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -751,6 +750,11 @@ span.text-red {
 }
 
 @media screen and (max-width:800px) {
+
+  .login-form {
+    width: 200px;
+  }
+
   .hero-banner-container {
     height: 560px;
   }
@@ -928,5 +932,16 @@ span.text-red {
   .btn-container {
     width: 300px;
     margin: auto;
+  }
+
+  .navbar-container {
+    margin: 2px 2px;
+    display: flex;
+    align-items: center;
+  }
+
+  .logo {
+    font-size: 16px;
+    text-align: start
   }
 }
